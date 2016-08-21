@@ -1,0 +1,3 @@
+<?php
+$apiKey = "ENTER_YOUR_ZOMATO_API_KEY";
+?>
