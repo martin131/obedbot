@@ -58,7 +58,6 @@ $dishes = getDishes($json, $resID);
 
 foreach($dishes as $item)
 {
-
     $output .= cleanDish($item->dish->name) ."\t".$item->dish->price .  "\n";
 }
 
