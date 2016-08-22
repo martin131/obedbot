@@ -8,14 +8,23 @@ $webhook= 'https://hooks.slack.com/services/T02SWP47C/B237EPM8D/ziyoDF4WLgKCaJjr
 $output="";
 $fromApp = false;
 $resID = 16506453;
+$resName = "U Slámů";
 if ($_GET["text"] == "uslamu")
 {
     $resID = 16506453;
+    $resName = "U Slámů";
 }
 
-if ($_GET["text"] == "kormidlo")
+else if ($_GET["text"] == "kormidlo")
 {
     $resID = 18337479;
+    $resName = "U kormidla";
+}
+
+else if ($_GET["text"] == "kasparek")
+{
+    $resID = 16507122;
+    $resName = "Hospůdka U Kašpárka";
 }
 
 if (isset($_GET["token"]))
@@ -44,13 +53,12 @@ curl_setopt_array($curl, array(
 
 $response = curl_exec($curl);
 $json = json_decode($response);
-
-$output .= getRestaurantName($json).", ". getMenuDate($json)."\n";
-
+$output .= $resName.", ". getMenuDate($json)."\n";
 $dishes = getDishes($json, $resID);
 
 foreach($dishes as $item)
 {
+
     $output .= cleanDish($item->dish->name) ."\t".$item->dish->price .  "\n";
 }
 
