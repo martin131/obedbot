@@ -30,7 +30,7 @@ function getDishes($json, $resID)
     }
     else if ($resID == 18337479)
     {
-        $startOffset = 1;
+        $startOffset = 0;
         $endOffset = null;
     }
 
