@@ -2,7 +2,7 @@
 include ("functions.php");
 include ("config.php");
 // kdyby bylo potřeba parsovat z webu
-//include("simple_html_dom.php");
+// include("simple_html_dom.php");
 
 $webhook= 'https://hooks.slack.com/services/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';
 $output="";
