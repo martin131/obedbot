@@ -28,9 +28,15 @@ function getDishes($json, $resID)
         $startOffset = 2;
         $endOffset = -3;
     }
-    else{
+    else if ($resID == 18337479)
+    {
         $startOffset = 0;
-        $endOffset = 0;
+        $endOffset = null;
+    }
+
+    else{
+        $startOffset = null;
+        $endOffset = null;
     }
     $json = $json->daily_menus[0];
     $json = $json->daily_menu;
@@ -55,7 +61,7 @@ function getRestaurantName($json)
     $json = $json->daily_menus[0];
     $json = $json->daily_menu;
     $json = $json->dishes;
-    return str_replace('"', '', $json[0]->dish->name);
+    return trim(str_replace('"', '', $json[0]->dish->name));
 
 }
 
