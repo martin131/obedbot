@@ -9,22 +9,26 @@ $output="";
 $fromApp = false;
 $resID = 16506453;
 $resName = "U Slámů";
+$isZomato = false;
 if ($_GET["text"] == "uslamu")
 {
     $resID = 16506453;
     $resName = "U Slámů";
+    $isZomato = true;
 }
 
 else if ($_GET["text"] == "kormidlo")
 {
     $resID = 18337479;
     $resName = "U kormidla";
+    $isZomato = true;
 }
 
 else if ($_GET["text"] == "kasparek")
 {
     $resID = 16507122;
     $resName = "Hospůdka U Kašpárka";
+    $isZomato = true;
 }
 
 if (isset($_GET["token"]))
@@ -71,7 +75,7 @@ curl_setopt($curlSend, CURLOPT_POSTFIELDS, $message);
 if($fromApp == true || isset($_GET["debug"]))
 {
     header('Content-type:application/json;charset=utf-8');
-    echo json_encode( array("response_type"=> "in_channel","text" => $output));
+    echo json_encode( array("response_type"=> "ephemeral","text" => $output));
 }
 else
 {
