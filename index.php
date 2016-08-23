@@ -75,7 +75,6 @@ if($isZomato ==true)
 
     foreach($dishes as $item)
     {
-
         $output .= cleanDish($item->dish->name) ."\t".$item->dish->price .  "\n";
     }
 
