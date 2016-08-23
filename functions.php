@@ -11,7 +11,17 @@ function delete_all_between($beginning, $end, $string) {
     return str_replace($textToDelete, '', $string);
 }
 
-
+function contains($input, $word)
+{
+    if (strpos($input, $word) !== false)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
 function cleanDish($string)
 {
     $string = delete_all_between("(",")", $string);

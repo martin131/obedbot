@@ -2,29 +2,37 @@
 include ("functions.php");
 include ("config.php");
 // kdyby bylo potřeba parsovat z webu
-//include("simple_html_dom.php");
+// include("simple_html_dom.php");
 
 $webhook= 'https://hooks.slack.com/services/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';
 $output="";
 $fromApp = false;
-$resID = 16506453;
-$resName = "U Slámů";
-if ($_GET["text"] == "uslamu")
+$isZomato = false;
+$responseType = "ephemeral";
+if (strpos($_GET["text"], '-p') !== false)
+{
+    $responseType = "in_channel";
+}
+
+if (contains($_GET["text"], "uslamu"))
 {
     $resID = 16506453;
     $resName = "U Slámů";
+    $isZomato = true;
 }
 
-else if ($_GET["text"] == "kormidlo")
+else if (contains($_GET["text"], "kormidlo"))
 {
     $resID = 18337479;
     $resName = "U kormidla";
+    $isZomato = true;
 }
 
-else if ($_GET["text"] == "kasparek")
+else if (contains($_GET["text"], "kasparek"))
 {
     $resID = 16507122;
     $resName = "Hospůdka U Kašpárka";
+    $isZomato = true;
 }
 
 if (isset($_GET["token"]))
@@ -37,41 +45,72 @@ if($fromApp != true)
     echo "<pre>";
 }
 
-$curl = curl_init();
-$apiURL = "https://developers.zomato.com/api/v2.1/dailymenu?res_id=". $resID;
-curl_setopt_array($curl, array(
-    CURLOPT_URL => $apiURL,
-    CURLOPT_CUSTOMREQUEST => "GET",
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_VERBOSE => 0,
-
-    CURLOPT_HTTPHEADER => array(
-        "cache-control: no-cache",
-        "user_key: $apiKey"
-    ),
-));
-
-$response = curl_exec($curl);
-$json = json_decode($response);
-$output .= $resName.", ". getMenuDate($json)."\n";
-$dishes = getDishes($json, $resID);
-
-foreach($dishes as $item)
+if($isZomato ==true)
 {
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+>>>>>>> origin/master
     $output .= cleanDish($item->dish->name) ."\t".$item->dish->price .  "\n";
+=======
+    $curl = curl_init();
+    $apiURL = "https://developers.zomato.com/api/v2.1/dailymenu?res_id=". $resID;
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => $apiURL,
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_VERBOSE => 0,
+
+        CURLOPT_HTTPHEADER => array(
+            "cache-control: no-cache",
+            "user_key: $apiKey"
+        ),
+    ));
+
+    $response = curl_exec($curl);
+    $json = json_decode($response);
+    $output .= $resName.", ". getMenuDate($json)."\n";
+    $dishes = getDishes($json, $resID);
+
+    foreach($dishes as $item)
+    {
+
+        $output .= cleanDish($item->dish->name) ."\t".$item->dish->price .  "\n";
+    }
+
+    $message = array('payload' => json_encode(array('text' => $output)));
+>>>>>>> refs/remotes/origin/devel
 }
 
+else{
+    if($_GET["text"] == "kebab")
+    {
+        $output = "Kebab je v poho, ale co třeba pro změnu zkusit něco jiného?";
+    }
+
+    else
+    {
+        $output = 'Přepínače:
+    -p - vrátí odpověď do aktuálního channelu
+         
+Podporované restaurace: uslamu, kormidlo, kasparek';
+    }
+}
+
+/*
 $message = array('payload' => json_encode(array('text' => $output)));
 $curlSend = curl_init($webhook);
 curl_setopt($curlSend, CURLOPT_SSL_VERIFYPEER, false);
 curl_setopt($curlSend, CURLOPT_POST, true);
 curl_setopt($curlSend, CURLOPT_POSTFIELDS, $message);
+*/
 
 if($fromApp == true || isset($_GET["debug"]))
 {
     header('Content-type:application/json;charset=utf-8');
-    echo json_encode( array("response_type"=> "in_channel","text" => $output));
+    echo json_encode( array("response_type"=> $responseType,"text" => $output));
+
 }
 else
 {
