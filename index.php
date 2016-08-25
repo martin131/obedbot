@@ -48,6 +48,10 @@ if($fromApp != true)
 if($isZomato ==true)
 {
 <<<<<<< HEAD
+
+=======
+<<<<<<< HEAD
+>>>>>>> origin/master
     $output .= cleanDish($item->dish->name) ."\t".$item->dish->price .  "\n";
 =======
     $curl = curl_init();
