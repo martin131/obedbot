@@ -71,7 +71,6 @@ if($isZomato ==true)
 
     foreach($dishes as $item)
     {
-
         $output .= cleanDish($item->dish->name) ."\t".$item->dish->price .  "\n";
     }
 
@@ -119,4 +118,6 @@ if($fromApp != true)
 {
     echo "</pre>";
 }
+
+writeToLog($_GET["user_name"],$_GET["channel_name"], $_GET["text"]);
 ?>

@@ -75,5 +75,15 @@ function getRestaurantName($json)
 
 }
 
+function writeToLog($username, $channel, $text)
+{
+    $file = "log.txt";
+    $current = file_get_contents($file);
+    $date = new DateTime();
+    $date = $date->format("Y-m-d H:i:s");
+    $text = $date." - ". $username. " - ".$channel. " - ". $text. "\n";
+    file_put_contents($file, $current.$text);
+}
+
 
 ?>
