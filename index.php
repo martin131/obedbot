@@ -75,11 +75,11 @@ if($isZomato ==true)
 }
 
 else{
-    if($_GET["text"] == "kebab")
+    if(contains($_GET["text"], "kebab"))
     {
         $output = "Kebab je v poho, ale co třeba pro změnu zkusit něco jiného?";
     }
-    else if ($_GET["text"] == "martin")
+    else if (contains($_GET["text"], "martin"))
     {
        
         $output = "Už je čas";
