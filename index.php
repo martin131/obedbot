@@ -79,7 +79,11 @@ else{
     {
         $output = "Kebab je v poho, ale co třeba pro změnu zkusit něco jiného?";
     }
-
+    else if ($_GET["text"] == "martin")
+    {
+       
+        $output = "Už je čas";
+    }
     else
     {
         $output = 'Přepínače:
