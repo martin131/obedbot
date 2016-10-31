@@ -60,7 +60,7 @@ if($isZomato ==true)
             "user_key: $apiKey"
         ),
     ));
-
+    
     $response = curl_exec($curl);
     $json = json_decode($response);
     $output .= $resName.", ". getMenuDate($json)."\n";
@@ -101,7 +101,7 @@ curl_setopt($curlSend, CURLOPT_POST, true);
 curl_setopt($curlSend, CURLOPT_POSTFIELDS, $message);
 */
 
-if($fromApp == true || isset($_GET["debug"]))
+if($fromApp || isset($_GET["debug"]))
 {
     header('Content-type:application/json;charset=utf-8');
     echo json_encode( array("response_type"=> $responseType,"text" => $output));
